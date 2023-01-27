@@ -4,7 +4,7 @@ import Robot
 
 
 # Run the simulation for each robot
-def multi_robot_simulation(Robot, dt, environment, event=None):
+def robot_simulation(Robot, dt, environment, event=None):
     Robot.move(dt, event=event)
     Robot.draw(environment.map)
     Robot.trail((Robot.x, Robot.y), environment.map, environment.yellow)
@@ -22,16 +22,8 @@ def main(args=None):
     dims = (2400,1800)
     environment = Environment.Envir(dims)
 
-    #Create robots
-    robots_followers = []
-    robot_leader = Robot.FourWheelRobot(start, r'assets/vehicles/4wheelRobot.png', 50)
-    robot_leader.leader = True
-
-    robot_follower1 = Robot.FourWheelRobot((start[0] - 200, start[1]), r'assets/vehicles/4wheelRobot.png', robot_leader)
-    robots_followers.append(robot_follower1)
-
-    robot_follower2 = Robot.FourWheelRobot((start[0] - 400, start[1]), r'assets/vehicles/4wheelRobot.png', robot_follower1)
-    robots_followers.append(robot_follower2)
+    #Create robot
+    robot = Robot.DiffDriveRobot(start, r'assets/vehicles/DiffDriveRobot.png', 50)
 
     #animation loop
     while running:
@@ -40,10 +32,7 @@ def main(args=None):
                 running = False
 
         # Call the simulation for each robot
-        multi_robot_simulation(robot_leader, dt, environment, event)
-
-        for robot in robots_followers:
-            multi_robot_simulation(robot, dt, environment)
+        robot_simulation(robot, dt, environment, event)
 
         pygame.display.flip()
         environment.map.fill(environment.black)
