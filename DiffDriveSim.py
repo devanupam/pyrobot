@@ -1,4 +1,4 @@
-import Environment
+import MapEnvironment
 import pygame
 import Robot
 
@@ -11,7 +11,6 @@ def robot_simulation(Robot, dt, environment, event=None):
 
 def main(args=None):
 
-    #Main
     pygame.init()
     running = True
     iterations = 0
@@ -20,7 +19,7 @@ def main(args=None):
 
     start = (500,200)
     dims = (2400,1800)
-    environment = Environment.Envir(dims)
+    environment = MapEnvironment.MapEnvSettings(dims, 'Diff Drive Robot Simulation')
 
     #Create robot
     robot = Robot.DiffDriveRobot(start, r'assets/vehicles/DiffDriveRobot.png', 50)

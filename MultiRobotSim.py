@@ -1,4 +1,4 @@
-import Environment
+import MapEnvironment
 import pygame
 import Robot
 
@@ -20,7 +20,7 @@ def main(args=None):
 
     start = (500,200)
     dims = (2400,1800)
-    environment = Environment.Envir(dims)
+    environment = MapEnvironment.MapEnvSettings(dims, 'Multi Robot Simulation')
 
     #Create robots
     robots_followers = []
