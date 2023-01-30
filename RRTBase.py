@@ -77,5 +77,3 @@ class RRTCore:
 
     def cost(self):
         pass
-
-

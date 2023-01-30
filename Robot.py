@@ -26,6 +26,10 @@ class Robot:
             self.trailSet.pop(0)
         self.trailSet.append(pos)
 
+    def robot_frame(self):
+        pass
+
+
 # 4 wheel robot for simulating multiple robots in a trail
 class FourWheelRobot(Robot):
     def __init__(self, startPos, robotImg, follow=None):

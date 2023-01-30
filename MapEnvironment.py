@@ -22,9 +22,6 @@ class MapEnvSettings:
     def write_info(self):
         pass
 
-    def robot_frame(self):
-        pass
-
 
 # Class to draw the map, obstacles and path
 class MapEnvDraw:
@@ -32,7 +29,7 @@ class MapEnvDraw:
         self.environment = MapEnvironment.MapEnvSettings(map_dimensions, caption, color)
         self.start = start
         self.goal = goal
-        self.node_radius = 0
+        self.node_radius = 4
         self.node_thickness = 0
         self.edge_thickness = 0
         # self.obstacles = []
@@ -44,6 +41,10 @@ class MapEnvDraw:
         
         # Draw obstacles
         self.drawObstacles(obstacles)
+
+    def drawNodes(self, map_nodes):
+        for node in map_nodes.nodes:
+            pygame.draw.circle(self.environment.map, self.environment.blue, (node.x, node.y), self.node_radius, self.node_thickness)
 
     def drawPath(self):
         pass
