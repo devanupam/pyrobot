@@ -7,12 +7,15 @@ class Node:
         self.x = x
         self.y = y
 
+    def __lt__(self, other):
+        return self.x < other.x        
+
 class MapNodes:
     def __init__(self, map_dimensions, obstacles):
         self.map_height, self.map_width = map_dimensions
 
         # Nodes
-        self.nodes = []
+        # self.nodes = []
 
         # Initialize obstacles
         self.obstacles = obstacles
@@ -22,7 +25,7 @@ class MapNodes:
         node_y = random.randint(0, self.map_height)
         node = Node(node_x, node_y)
         if self.isFree(node):
-            self.nodes.append(node)
+            return node
 
     def addEdge(self, node1, node2):
         pass
@@ -33,18 +36,15 @@ class MapNodes:
     def removeEdge(self):
         pass
 
-    def numNodes(self):
-        len(self.nodes)
-
     def distance(self, node1, node2):
         return ((node1.x - node2.x) ** 2 + (node1.y - node2.y) ** 2) ** 0.5
 
-    def nearestNNodes(self, ref_node, n):
+    def nearestNNodes(self, nodes, ref_node, n):
         # Return n nearest nodes
         distances = []
-        for node in self.nodes:
+        for node in nodes:
             distances.append(self.distance(ref_node, node))
-        sorted_nodes = [x for _, x in sorted(zip(distances, self.nodes))]
+        sorted_nodes = [x for _, x in sorted(zip(distances, nodes))]
         return sorted_nodes[:n]
 
     def isFree(self, node):

@@ -1,6 +1,5 @@
 import pygame
 from RRTBase import RRTCore 
-from RRTBase import RRTMap
 from MapEnvironment import MapEnvDraw, MapEnvSettings
 from Obstacles import Obstacles
 from RandomSampling import MapNodes
@@ -9,8 +8,8 @@ from RandomSampling import MapNodes
 
 def main():
     start = (50,50)
-    goal = (2000,1000)
-    map_dims = (2200,1800)
+    goal = (1800,1000)
+    map_dims = (2000, 2200)
     obstacles_dims = (100,100)
     obstacles_num = 50
 
@@ -20,12 +19,13 @@ def main():
     rrtmap = MapEnvDraw(start, goal, map_dims, 'RRT path planning Simulation', MapEnvSettings.white)
     obstacles = Obstacles(map_dims, obstacles_dims, obstacles_num)
     obstaclesList = obstacles.makeObstacles(start, goal)
-    # rrtCore = RRTCore(start, goal, dims, obstacles)
 
     # Draw map
     rrtmap.drawMap(obstaclesList)
 
-    map_nodes = MapNodes(map_dims, obstaclesList)
+    # map_nodes = MapNodes(map_dims, obstaclesList)
+    rrtCore = RRTCore(start, goal, map_dims, obstaclesList)
+    
 
     # Update display and wait for user to close window
     running = True
@@ -33,8 +33,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        map_nodes.addNode()        
-        rrtmap.drawNodes(map_nodes)
+        # map_nodes.addNode()
+        rrtCore.addEdge()
+        rrtmap.drawNodes(rrtCore.tree_nodes)
+        rrtmap.drawEdges(rrtCore.tree_nodes)
         pygame.display.flip()
 
 if __name__ == '__main__':

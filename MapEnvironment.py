@@ -31,7 +31,7 @@ class MapEnvDraw:
         self.goal = goal
         self.node_radius = 4
         self.node_thickness = 0
-        self.edge_thickness = 0
+        self.edge_thickness = 2
         # self.obstacles = []
 
     def drawMap(self, obstacles):
@@ -43,8 +43,13 @@ class MapEnvDraw:
         self.drawObstacles(obstacles)
 
     def drawNodes(self, map_nodes):
-        for node in map_nodes.nodes:
+        for node in map_nodes:
             pygame.draw.circle(self.environment.map, self.environment.blue, (node.x, node.y), self.node_radius, self.node_thickness)
+
+    def drawEdges(self, map_nodes):
+        for node in map_nodes:
+            if node.parent is not None:
+                pygame.draw.line(self.environment.map, self.environment.orange, (node.x, node.y), (node.parent.x, node.parent.y), self.edge_thickness)
 
     def drawPath(self):
         pass
